@@ -7,6 +7,7 @@ Topics to be covered
 - review OO basics (operators, keywords, construct methods)
 - magic methods
 - type hinting
+- namespaces
 - static properties and methods
 - encapsulation
 - inheritance
