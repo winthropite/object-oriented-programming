@@ -1,8 +1,8 @@
-<?php
+<?php 
 
-require_once 'actions.php';
+require_once 'actions.php'; 
 
-$order_queue_size = \CDIA\Order::queueSize();
+$orders = \CDIA\Order::getOrders();
 
 ?>
 <!DOCTYPE html>
@@ -32,9 +32,9 @@ body {
         <a class="navbar-brand" href="index.php">CDIA Restaurant</a>
         <div class="nav-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="customer.php">Customer</a></li>
-                <li><a href="chef.php">Chef</a></li>
+                <li class="active"><a href="chef.php">Chef</a></li>
             </ul>
         </div>
     </div>
@@ -42,8 +42,14 @@ body {
 
 <div class="container" id="content">
     <h2>CDIA Restaurant</h2>
-    
-    <p>Orders in the queue: <?php echo $order_queue_size; ?></p>
+
+    <ol>
+        <?php foreach($orders as $order): ?>
+            <li><?php echo $order['meal']; ?></li>
+        <?php endforeach; ?>
+    </ol>
+
+    <p><a href="actions.php?action=dequeue_order" class="btn btn-primary">Cook next meal in queue</a></p>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>

@@ -1,10 +1,4 @@
-<?php
-
-require_once 'actions.php';
-
-$order_queue_size = \CDIA\Order::queueSize();
-
-?>
+<?php require_once 'actions.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +10,7 @@ body {
   padding-top: 50px;
 }
 #content {
-  padding: 20px 0 0;
+  padding: 20px 15px;
 }
 </style>
 </head>
@@ -32,8 +26,8 @@ body {
         <a class="navbar-brand" href="index.php">CDIA Restaurant</a>
         <div class="nav-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.php">Home</a></li>
-                <li><a href="customer.php">Customer</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li class="active"><a href="customer.php">Customer</a></li>
                 <li><a href="chef.php">Chef</a></li>
             </ul>
         </div>
@@ -42,8 +36,27 @@ body {
 
 <div class="container" id="content">
     <h2>CDIA Restaurant</h2>
-    
-    <p>Orders in the queue: <?php echo $order_queue_size; ?></p>
+
+    <form method="post" action="actions.php?action=enqueue_order">
+        <fieldset>
+            <div class="form-group">
+                <p><label>Customer</label>
+                <select name="customer_id" class="form-control">
+                    <option value="">Select One</option>
+                    <option value="1">Customer 1</option>
+                    <option value="2">Customer 2</option>
+                    <option value="3">Customer 3</option>
+                </select></p>
+            </div>
+
+            <div class="form-group">
+                <p><label>Meal</label>
+                <textarea name="meal" class="form-control"></textarea></p>
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit</button>
+        </fieldset>
+    </form>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
