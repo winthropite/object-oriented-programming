@@ -1,4 +1,10 @@
-<?php require_once 'actions.php'; ?>
+<?php 
+
+require_once 'actions.php';
+
+$customers = \CDIA\Customer::getCustomers();
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,9 +49,9 @@ body {
                 <p><label>Customer</label>
                 <select name="customer_id" class="form-control">
                     <option value="">Select One</option>
-                    <option value="1">Customer 1</option>
-                    <option value="2">Customer 2</option>
-                    <option value="3">Customer 3</option>
+                    <?php foreach($customers as $customer): ?>
+                        <option value="<?php echo $customer['id']; ?>"><?php echo $customer['name']; ?></option>
+                    <?php endforeach; ?>
                 </select></p>
             </div>
 

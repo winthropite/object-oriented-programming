@@ -137,7 +137,33 @@ $app->get('/dequeue_order', function(Request $request) use($app) {
 });
 
 $app->get('/get_orders', function(Request $request) use($app) {
-    $sql = "SELECT orders_queue.*, orders.* FROM orders_queue INNER JOIN orders ON orders.id = orders_queue.order_id ORDER BY orders_queue.id ASC";
+    $sql = <<<EOL
+        
+    SELECT orders_queue.*, orders.*, customers.* 
+    FROM orders_queue 
+    INNER JOIN orders ON orders.id = orders_queue.order_id 
+    INNER JOIN customers ON customers.id = orders.customer_id  
+    ORDER BY orders_queue.id ASC
+    
+EOL;
+
+    $stmt = $app['db']->prepare($sql);
+
+    $stmt->execute();
+
+    $results = $stmt->fetchAll(\PDO::FETCH_OBJ);
+    
+    if ($request->get('callback') !== NULL) {
+        $response = new JsonResponse(array('results' => $results));
+    
+        return $response->setCallback($request->get('callback'));
+    } else {
+        return new JsonResponse(array('results' => $results));
+    }
+});
+
+$app->get('/get_customers', function(Request $request) use($app) {
+    $sql = "SELECT * FROM customers";
 
     $stmt = $app['db']->prepare($sql);
 

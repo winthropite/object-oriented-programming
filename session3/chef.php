@@ -48,7 +48,7 @@ body {
     <?php else: ?>
         <ol>
             <?php foreach($orders as $order): ?>
-                <li><?php echo $order['meal']; ?></li>
+                <li><?php echo $order['name']; ?> ordered <?php echo $order['meal']; ?></li>
             <?php endforeach; ?>
         </ol>
         
