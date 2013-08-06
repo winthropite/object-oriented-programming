@@ -86,23 +86,36 @@ $app->post('/enqueue_order', function(Request $request) use($app) {
 $app->get('/dequeue_order', function(Request $request) use($app) {
     try {
         $app['db']->beginTransaction();
-    
+        
+        // select next item in queue
         $sql = "SELECT orders_queue.*, orders.* FROM orders_queue INNER JOIN orders ON orders.id = orders_queue.order_id ORDER BY orders_queue.id ASC LIMIT 1";
 
         $stmt = $app['db']->prepare($sql);
     
         $stmt->execute();
-    
+        
         $result = $stmt->fetch(\PDO::FETCH_OBJ);
     
-        $sql2 = "DELETE FROM orders_queue WHERE id = :id";
-
-        $stmt2 = $app['db']->prepare($sql2);
-        
+        // remove item from queue
         if ($result !== false) {
+            $sql2 = "DELETE FROM orders_queue WHERE id = :id";
+
+            $stmt2 = $app['db']->prepare($sql2);
+            
             $stmt2->bindValue(':id', $result->id, \PDO::PARAM_INT);
         
             $stmt2->execute();
+        }
+        
+        // update order status
+        if ($result !== false) {
+            $sql3 = "UPDATE orders SET status = 2 WHERE id = :id";
+        
+            $stmt3 = $app['db']->prepare($sql3);
+        
+            $stmt3->bindValue(':id', $result->order_id, \PDO::PARAM_INT);
+        
+            $stmt3->execute();
         }
     
         if (!$app['db']->commit()) {

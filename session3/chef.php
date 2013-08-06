@@ -42,14 +42,18 @@ body {
 
 <div class="container" id="content">
     <h2>CDIA Restaurant</h2>
-
-    <ol>
-        <?php foreach($orders as $order): ?>
-            <li><?php echo $order['meal']; ?></li>
-        <?php endforeach; ?>
-    </ol>
-
-    <p><a href="actions.php?action=dequeue_order" class="btn btn-primary">Cook next meal in queue</a></p>
+    
+    <?php if (count($orders) === 0): ?>
+        <p>No Orders</p> 
+    <?php else: ?>
+        <ol>
+            <?php foreach($orders as $order): ?>
+                <li><?php echo $order['meal']; ?></li>
+            <?php endforeach; ?>
+        </ol>
+        
+        <p><a href="actions.php?action=dequeue_order" class="btn btn-primary">Cook next meal in queue</a></p>
+    <?php endif; ?>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
