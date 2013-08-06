@@ -14,8 +14,8 @@ class Auth {
         $username = $_POST['username'];
         $password = crypt($_POST['password'], '$5$rounds=5000$'.SALT.'$');
         
-		$sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
-		
+        $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+        
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -23,8 +23,8 @@ class Auth {
         if ($result) {
             $_SESSION['username'] = $result->username;
         }
-		
-		return $result;
+        
+        return $result;
     }
     
     public function isLoggedIn() {
