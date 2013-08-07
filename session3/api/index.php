@@ -1,14 +1,19 @@
 <?php
 
+// use classes from Symfony
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+// autoload silex related classes
 require_once __DIR__.'/vendor/autoload.php'; 
 
+// create the silex application object
 $app = new Silex\Application();
 
+// turn debug mode on
 $app['debug'] = true;
 
+// database config (should go outside of the web root)
 define('HOST', '127.0.0.1');
 define('PORT', null);
 define('USERNAME', 'root');
@@ -36,6 +41,7 @@ $app->get('/queue_size', function(Request $request) use($app) {
     
     $result = $stmt->fetch(\PDO::FETCH_OBJ);
     
+    // return either json or jsonp if there is a callback param
     if ($request->get('callback') !== NULL) {
         $response = new JsonResponse(array('result' => $result));
     
@@ -48,6 +54,7 @@ $app->get('/queue_size', function(Request $request) use($app) {
 $app->post('/enqueue_order', function(Request $request) use($app) {
     try {
         $app['db']->beginTransaction();
+        
         $sql = "INSERT INTO orders (meal, customer_id) VALUES (:meal, :customer_id)";
         
         $stmt = $app['db']->prepare($sql);
@@ -74,6 +81,7 @@ $app->post('/enqueue_order', function(Request $request) use($app) {
         $result = false;
     }
     
+    // return either json or jsonp if there is a callback param
     if ($request->get('callback') !== NULL) {
         $response = new JsonResponse(array('result' => $result));
     
@@ -127,6 +135,7 @@ $app->get('/dequeue_order', function(Request $request) use($app) {
         $result = false;
     }
     
+    // return either json or jsonp if there is a callback param
     if ($request->get('callback') !== NULL) {
         $response = new JsonResponse(array('result' => $result));
     
@@ -153,6 +162,7 @@ EOL;
 
     $results = $stmt->fetchAll(\PDO::FETCH_OBJ);
     
+    // return either json or jsonp if there is a callback param
     if ($request->get('callback') !== NULL) {
         $response = new JsonResponse(array('results' => $results));
     
@@ -171,6 +181,7 @@ $app->get('/get_customers', function(Request $request) use($app) {
 
     $results = $stmt->fetchAll(\PDO::FETCH_OBJ);
     
+    // return either json or jsonp if there is a callback param
     if ($request->get('callback') !== NULL) {
         $response = new JsonResponse(array('results' => $results));
     

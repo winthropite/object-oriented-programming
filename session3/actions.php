@@ -1,5 +1,6 @@
 <?php
 
+// set the API url that gets used in the curl requests
 define('API_URL', 'http://127.0.0.1/~Dan/cdiabu/object-oriented-programming/session3/api/index.php/');
 // define('API_URL', 'http://166.78.112.120/cdiabu/index.php/');
 
