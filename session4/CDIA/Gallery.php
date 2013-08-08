@@ -12,7 +12,7 @@ class Gallery {
         $photos = array();
         
         foreach ($dir as $fileinfo) {
-            if (!$fileinfo->isDot() && !$fileinfo->isDir()) {
+            if (!$fileinfo->isDot() && !$fileinfo->isDir() && $fileinfo->getFilename() !== '.DS_Store') {
                 $path = BASE_PATH . 'uploads/' . $fileinfo->getFilename();
                 
                 $photo = new Photo($path);
