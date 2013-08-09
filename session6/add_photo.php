@@ -1,8 +1,3 @@
-<?php
-
-require 'actions.php';   
-    
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,19 +25,35 @@ body {
         <a class="navbar-brand" href="index.php">Photo Gallery</a>
         <div class="nav-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.php">Home</a></li>
-                <li><a href="add_photo.php">Add Photo</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li class="active"><a href="add_photo.php">Add Photo</a></li>
             </ul>
         </div>
     </div>
 </div>
 
 <div class="container" id="content">
-    <h2>All Photos</h2>
+    <h2>Add Photo</h2>
     
-    <?php foreach(\CDIA\Gallery::getAllPhotos() as $photo): ?>
-        <p><img src="<?php echo $photo; ?>" alt=""></p>
-    <?php endforeach; ?>
+    <form method="post" action="actions.php?action=add_photo" enctype="multipart/form-data">
+        <fieldset>
+            <div class="form-group">
+                <p><label>Select a Category</label>
+                <select name="category">
+                    <option value="">Select One</option>
+                    <option value="sports">Sports</option>
+                    <option value="foods">Foods</option>
+                </select></p>
+            </div>
+            
+            <div class="form-group">
+                <p><label>Select a file</label>
+                <input type="file" name="photo"></p>
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit</button>
+        </fieldset>
+    </form>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>

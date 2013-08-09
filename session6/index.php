@@ -1,3 +1,10 @@
+<?php 
+
+require 'actions.php';
+
+$gallery = new \CDIA\Gallery(UPLOAD_PATH);
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,26 +32,29 @@ body {
         <a class="navbar-brand" href="index.php">Photo Gallery</a>
         <div class="nav-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="index.php">Home</a></li>
-                <li class="active"><a href="add_photo.php">Add Photo</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="add_photo.php">Add Photo</a></li>
             </ul>
         </div>
     </div>
 </div>
 
 <div class="container" id="content">
-    <h2>Add Photo</h2>
+    <h2>Sports</h2>
     
-    <form method="post" action="actions.php?action=add_photo" enctype="multipart/form-data">
-        <fieldset>
-            <div class="form-group">
-                <p><label>Select a file</label>
-                <input type="file" name="photo"></p>
-            </div>
+    <?php foreach($gallery->photos as $photo): ?>
+        <?php if ($photo->category === 'sports'): ?>
+            <p><img src="<?php echo $photo; ?>" alt=""></p>
+        <?php endif; ?>
+    <?php endforeach; ?>
 
-            <button type="submit" class="btn btn-default">Submit</button>
-        </fieldset>
-    </form>
+    <h2>Foods</h2>
+
+    <?php foreach($gallery->photos as $photo): ?>
+        <?php if ($photo->category === 'foods'): ?>
+            <p><img src="<?php echo $photo; ?>" alt=""></p>
+        <?php endif; ?>
+    <?php endforeach; ?>
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
