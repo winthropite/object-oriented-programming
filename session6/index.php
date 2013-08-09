@@ -42,18 +42,14 @@ body {
 <div class="container" id="content">
     <h2>Sports</h2>
     
-    <?php foreach($gallery->photos as $photo): ?>
-        <?php if ($photo->category === 'sports'): ?>
-            <p><img src="<?php echo $photo; ?>" alt=""></p>
-        <?php endif; ?>
+    <?php foreach($gallery->getPhotos('sports') as $photo): ?>
+        <p><img src="<?php echo $photo; ?>" alt=""></p>
     <?php endforeach; ?>
 
     <h2>Foods</h2>
 
-    <?php foreach($gallery->photos as $photo): ?>
-        <?php if ($photo->category === 'foods'): ?>
-            <p><img src="<?php echo $photo; ?>" alt=""></p>
-        <?php endif; ?>
+    <?php foreach($gallery->getPhotos('foods') as $photo): ?>
+        <p><img src="<?php echo $photo; ?>" alt=""></p>
     <?php endforeach; ?>
 </div>
 

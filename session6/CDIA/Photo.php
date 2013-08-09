@@ -3,16 +3,16 @@
 namespace CDIA;
 
 class Photo {
-    public $path;
+    public $filename;
     public $category;
 
-    public function __construct($path, $category) {
-        $this->path = $path;
+    public function __construct($filename, $category) {
+        $this->filename = $filename;
         $this->category = $category;
     }
 
     public function __toString() {
-        return $this->path;
+        return BASE_PATH . 'uploads/' . $this->category . '/' . $this->filename;
     }
 }
 

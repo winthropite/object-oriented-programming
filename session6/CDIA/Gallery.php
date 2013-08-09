@@ -6,7 +6,7 @@ use CDIA\Photo;
 
 class Gallery {
 
-    public $photos = array();
+    private $photos = array();
 
     public function __construct($directory) {
         $this->getPhotosByDirectory($directory);
@@ -24,13 +24,21 @@ class Gallery {
                 if ($fileinfo->isDir()) {
                     $this->getPhotosByDirectory($path);
                 } else {
-                    $path = BASE_PATH . 'uploads/' . end($categories) . '/' . $fileinfo->getFilename();
-
-                    $photo = new Photo($path, end($categories));
+                    $photo = new Photo($fileinfo->getFilename(), end($categories));
 
                     $this->photos[] = $photo;
                 }
             }
+        }
+    }
+    
+    public function getPhotos($category = null) {
+        if ($category !== null) {
+            return array_filter($this->photos, function($item) use ($category) {
+                return $item->category === $category;
+            });
+        } else {
+            return $this->photos;
         }
     }
 
