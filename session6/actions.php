@@ -1,6 +1,6 @@
  <?php
 
-define('BASE_PATH', 'http://127.0.0.1/~Dan/cdiabu/object-oriented-programming/session4/');
+define('BASE_PATH', 'http://127.0.0.1/~Dan/cdiabu/object-oriented-programming/session6/');
 define('UPLOAD_PATH', __DIR__ . '/uploads/');
 
 spl_autoload_register(function ($class) {
