@@ -54,7 +54,7 @@ if (!$auth->isLoggedIn()) {
 </div>
 
 <div class="container">
-	<div class="row">
+    <div class="row">
         <div class="col-md-8">
             <h2>Posts</h2>
 
@@ -77,17 +77,17 @@ if (!$auth->isLoggedIn()) {
 
                 <p><a href="#" class="btn btn-primary">View Comments</a></p>
             </div>
-		</div>
+        </div>
 
-		<div class="col-md-4">
-			<h2>Users</h2>
+        <div class="col-md-4">
+            <h2>Users</h2>
 
-			<ul>
-				<li><a href="#">Dan</a></li>
-				<li><a href="#">John</a></li>
-			</ul>
-		</div>
-	</div>
+            <ul>
+                <li><a href="#">Dan</a></li>
+                <li><a href="#">John</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <!-- Bootstrap core JavaScript
